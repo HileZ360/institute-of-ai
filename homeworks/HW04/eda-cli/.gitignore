@@ -1,0 +1,21 @@
+# байткод и кэш
+__pycache__/
+*.py[cod]
+
+# билд
+build/
+dist/
+wheels/
+*.egg-info/
+
+# венв
+.venv/
+
+#тесты
+.pytest_cache/
+
+#еда + артефакты
+reports*/
+reports_*/
+reports_example/
+reports_after_core/
