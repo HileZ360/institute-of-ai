@@ -52,19 +52,34 @@ homeworks/
 pip install pandas numpy matplotlib scikit-learn
 ```
 
+Если используешь `uv`, то `pyproject.toml` лежит в корне репозитория,
+поэтому зависимости ставятся так:
+
+```bash
+cd <корень-репозитория>
+uv sync
+```
+
 ### 2) Запуск
 
-Открой ноутбук `HW05/HW05.ipynb` и выполни все ячейки.
+Открой ноутбук `homeworks/HW05/HW05.ipynb` и выполни все ячейки.
+
+Пример через `uv` (при наличии Jupyter):
+
+```bash
+cd <корень-репозитория>
+uv run jupyter lab
+```
 
 Важно про пути:
 
-* в ноутбуке используется `pd.read_csv("S05-hw-dataset.csv")`
-* и сохранение графика `plt.savefig("figures/roc_curve.png")`
+* в ноутбуке CSV ищется в текущей директории и в `homeworks/HW05/`
+* график сохраняется в папку `figures/` рядом с найденным CSV
 
 Поэтому при запуске нужно, чтобы:
 
-* файл `S05-hw-dataset.csv` был доступен относительно текущей рабочей директории ядра
-* папка `figures/` существовала относительно текущей рабочей директории ядра
+* файл `S05-hw-dataset.csv` был доступен либо в текущей директории, либо в `homeworks/HW05/`
+* папка `figures/` создаётся автоматически рядом с найденным CSV
 
 Если при запуске возникает `FileNotFoundError`, исправь одним из способов:
 
@@ -127,7 +142,7 @@ pip install pandas numpy matplotlib scikit-learn
 
 Также строятся ROC-кривые и сохраняются в файл:
 
-* `HW05/figures/roc_curve.png` (если рабочая директория настроена так, что путь `figures/roc_curve.png` попадает в `HW05/figures/`)
+* `homeworks/HW05/figures/roc_curve.png`
 
 ## Вывод
 

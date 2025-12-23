@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Tuple
+from typing import Any, Dict
 from time import perf_counter
 from io import BytesIO
 
@@ -86,8 +86,8 @@ def _read_csv_upload(file: UploadFile) -> pd.DataFrame:
         raise
     except Exception as exc:
         raise HTTPException(status_code=400, detail=f"Не удалось прочитать CSV: {exc}")
-    if df.empty:
-        raise HTTPException(status_code=400, detail="CSV не содержит строк.")
+    if df.shape[0] == 0 or df.shape[1] == 0:
+        raise HTTPException(status_code=400, detail="CSV не содержит строк или колонок.")
     return df
 
 def _normalize_quality_output(quality: Any) -> tuple[Dict[str, Any], float]:
@@ -128,16 +128,6 @@ def _to_bool_flags(raw: Dict[str, Any]) -> Dict[str, bool]:
     return flags
 
 
-def _compute_quality_from_df(df: pd.DataFrame) -> tuple[Dict[str, bool], float]:
-    summary = summarize_dataset(df)
-    missing = missing_table(df)
-
-    quality = compute_quality_flags(summary, missing)
-    raw, quality_score = _normalize_quality_output(quality)
-    flags = _to_bool_flags(raw)
-    quality_score = max(0.0, min(1.0, float(quality_score)))
-    return flags, quality_score
-
 @app.get("/health")
 def health() -> dict:
     return {
@@ -164,13 +154,23 @@ def quality(request: QualityRequest) -> QualityResponse:
 @app.post("/quality-from-csv", response_model=QualityResponse)
 def quality_from_csv(file: UploadFile = File(...)) -> QualityResponse:
     start = perf_counter()
+    if not file or not file.filename:
+        raise HTTPException(status_code=400, detail="Файл не передан.")
     df = _read_csv_upload(file)
-    flags, quality_score = _compute_quality_from_df(df)
+    if df.shape[0] == 0 or df.shape[1] == 0:
+        raise HTTPException(status_code=400, detail="CSV не содержит строк или колонок.")
+
+    summary = summarize_dataset(df)
+    missing = missing_table(df)
+    flags = compute_quality_flags(df)
+    raw, quality_score = _normalize_quality_output(flags)
+    bool_flags = _to_bool_flags(raw)
+    quality_score = max(0.0, min(1.0, float(quality_score)))
     latency_ms = (perf_counter() - start) * 1000.0
 
     ok_for_model = (
-        not flags.get("too_few_rows", False)
-        and not flags.get("too_many_missing", False)
+        not bool_flags.get("too_few_rows", False)
+        and not bool_flags.get("too_many_missing", False)
         and quality_score >= 0.5
     )
 
@@ -185,11 +185,20 @@ def quality_from_csv(file: UploadFile = File(...)) -> QualityResponse:
         quality_score=quality_score,
         message=message,
         latency_ms=latency_ms,
-        flags=flags,
-        dataset_shape=DatasetShape(n_rows=df.shape[0], n_cols=df.shape[1]),
+        flags=bool_flags,
+        dataset_shape=DatasetShape(n_rows=summary.n_rows, n_cols=summary.n_cols),
     )
 @app.post("/quality-flags-from-csv", response_model=QualityFlagsResponse)
 def quality_flags_from_csv(file: UploadFile = File(...)) -> QualityFlagsResponse:
+    if not file or not file.filename:
+        raise HTTPException(status_code=400, detail="Файл не передан.")
     df = _read_csv_upload(file)
-    flags, _ = _compute_quality_from_df(df)
-    return QualityFlagsResponse(flags=flags)
+    if df.shape[0] == 0 or df.shape[1] == 0:
+        raise HTTPException(status_code=400, detail="CSV не содержит строк или колонок.")
+
+    summary = summarize_dataset(df)
+    missing = missing_table(df)
+    flags = compute_quality_flags(df)
+    raw, _ = _normalize_quality_output(flags)
+    bool_flags = _to_bool_flags(raw)
+    return QualityFlagsResponse(flags=bool_flags)

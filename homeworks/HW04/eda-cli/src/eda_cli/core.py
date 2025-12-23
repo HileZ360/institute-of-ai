@@ -170,7 +170,10 @@ def top_categories(
     return result
 
 
-def compute_quality_flags(summary: DatasetSummary, missing_df: pd.DataFrame) -> Dict[str, Any]:
+def compute_quality_flags(
+    data: pd.DataFrame | DatasetSummary,
+    missing_df: pd.DataFrame | None = None,
+) -> Dict[str, Any]:
     """
     Простейшие эвристики «качества» данных:
     - слишком мало строк;
@@ -179,6 +182,13 @@ def compute_quality_flags(summary: DatasetSummary, missing_df: pd.DataFrame) -> 
     - константные колонки;
     - категориальные колонки с высокой кардинальностью.
     """
+    if isinstance(data, pd.DataFrame):
+        summary = summarize_dataset(data)
+        missing_df = missing_table(data)
+    else:
+        summary = data
+        if missing_df is None:
+            raise ValueError("missing_df обязателен, если передан DatasetSummary.")
     flags: Dict[str, Any] = {}
 
     # Базовые флаги по размеру датасета

@@ -1,7 +1,8 @@
-# eda-cli – мини-CLI для EDA (HW03)
+# eda-cli – CLI + HTTP API для EDA (HW04)
 
-Проект для домашнего задания HW03 по семинару S03.
-Цель – оформить простую EDA-утилиту в виде полноценного Python-проекта c CLI, эвристиками качества данных и тестами.
+Проект для домашнего задания HW04 по семинару S04.
+Основан на коде HW03: CLI, эвристики качества и тесты сохранены,
+добавлен HTTP API на FastAPI.
 
 ---
 
@@ -9,7 +10,7 @@
 
 ```text
 homeworks/
-  HW03/
+  HW04/
     eda-cli/
       pyproject.toml
       uv.lock
@@ -24,6 +25,7 @@ homeworks/
           core.py
           viz.py
           cli.py
+          api.py
       tests/
         test_core.py
       reports_example/   # примеры сгенерированных отчётов (не коммитятся)
@@ -40,7 +42,7 @@ homeworks/
 Находясь в корне проекта `eda-cli`:
 
 ```bash
-cd homeworks/HW03/eda-cli
+cd homeworks/HW04/eda-cli
 uv sync
 ```
 
@@ -48,7 +50,7 @@ uv sync
 
 ---
 
-## Доступные команды CLI
+## Доступные команды CLI (наследие HW03)
 
 После установки зависимостей запуск выполняется через `uv run`:
 
@@ -145,6 +147,33 @@ uv run eda-cli report data/example.csv \
 
 ---
 
+## HTTP API (HW04)
+
+Запуск FastAPI через `uvicorn`:
+
+```bash
+cd homeworks/HW04/eda-cli
+uv sync
+uv run uvicorn eda_cli.api:app --reload --port 8000
+```
+
+Документация Swagger после старта: `http://127.0.0.1:8000/docs`.
+
+Доступные эндпоинты:
+
+* `GET /health` – проверка работоспособности
+* `POST /quality` – оценка по агрегатам (n_rows, n_cols и т.д.)
+* `POST /quality-from-csv` – оценка качества по CSV (использует ядро HW03)
+* `POST /quality-flags-from-csv` – дополнительные флаги по CSV (использует ядро HW03)
+
+Пример запроса (CSV-файл):
+
+```bash
+curl -X POST -F "file=@data/example.csv" http://127.0.0.1:8000/quality-from-csv
+```
+
+---
+
 ## Тесты
 
 Для проверки корректности функций `core.py` и новых эвристик используется `pytest`.
@@ -152,7 +181,7 @@ uv run eda-cli report data/example.csv \
 Запуск из корня проекта `eda-cli`:
 
 ```bash
-cd homeworks/HW03/eda-cli
+cd homeworks/HW04/eda-cli
 uv run pytest -q
 ```
 
@@ -170,7 +199,7 @@ uv run pytest -q
 1. Перейти в проект и установить зависимости:
 
    ```bash
-   cd homeworks/HW03/eda-cli
+   cd homeworks/HW04/eda-cli
    uv sync
    ```
 
@@ -179,6 +208,7 @@ uv run pytest -q
    ```bash
    uv run eda-cli overview data/example.csv
    uv run eda-cli report data/example.csv --out-dir reports_example
+   uv run uvicorn eda_cli.api:app --reload --port 8000
    ```
 
 3. Убедиться, что все тесты проходят:
@@ -187,4 +217,5 @@ uv run pytest -q
    uv run pytest -q
    ```
 
-Если все команды выполняются без ошибок и в `reports_example/` появляются артефакты отчёта, домашнее задание HW03 считается технически выполненным.
+Если все команды выполняются без ошибок, в `reports_example/` появляются артефакты отчёта
+и API стартует через `uvicorn`, домашнее задание HW04 считается технически выполненным.

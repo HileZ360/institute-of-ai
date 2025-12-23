@@ -9,13 +9,15 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "fastapi>=0.126.0",
-    "matplotlib>=3.10.7",
-    "pandas>=2.3.3",
-    "pytest>=9.0.1",
-    "python-multipart>=0.0.21",
-    "typer>=0.20.0",
-    "uvicorn[standard]>=0.40.0",
+    "fastapi",
+    "matplotlib",
+    "numpy",
+    "pandas",
+    "pydantic",
+    "pytest",
+    "python-multipart",
+    "typer",
+    "uvicorn[standard]",
 ]
 
 [project.scripts]
