@@ -12,8 +12,8 @@
     "f1": 0.6804123711340206,
     "precision_pos": 0.9295774647887324,
     "recall_pos": 0.5365853658536586,
-    "roc_auc": 0.8894076361882678,
-    "average_precision": 0.7258169520297099
+    "roc_auc": 0.8894341436052139,
+    "average_precision": 0.7258369015225435
   },
   "dataset": "S06-hw-dataset-04.csv",
   "random_state": 42,
