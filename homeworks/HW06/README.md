@@ -85,13 +85,13 @@ uv run jupyter lab
 
 | Модель                 | Accuracy | F1    | ROC-AUC |
 | ---------------------- | -------- | ----- | ------- |
-| DummyClassifier        | 0.951    | 0.000 | 0.500   |
-| LogisticRegression     | 0.963    | 0.429 | 0.834   |
-| DecisionTree           | 0.966    | 0.567 | 0.819   |
-| RandomForest           | 0.973    | 0.634 | 0.897   |
-| GradientBoosting       | 0.975    | 0.680 | 0.889   |
+| DummyClassifier        | 0.9508   | 0.0000 | 0.5000  |
+| LogisticRegression     | 0.9632   | 0.4286 | 0.8340  |
+| DecisionTree           | 0.9664   | 0.5670 | 0.8187  |
+| RandomForest           | 0.9692   | 0.5471 | 0.8944  |
+| GradientBoosting       | 0.9752   | 0.6804 | 0.8894  |
 
-Лучший по CV ROC-AUC: `GradientBoostingClassifier` (CV 0.888).
+Лучший по CV ROC-AUC: `GradientBoostingClassifier` (CV 0.8876).
 Артефакты модели и графики сохранены в `homeworks/HW06/artifacts/`.
 
 ## Вывод

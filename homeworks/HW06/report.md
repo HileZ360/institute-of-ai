@@ -23,19 +23,20 @@
 
 ## 4. Results
 
-- DummyClassifier — acc 0.951, F1 0.000, ROC-AUC 0.500.
-- LogisticRegression — acc 0.963, F1 0.429, ROC-AUC 0.834.
-- DecisionTree — acc 0.966, F1 0.567, ROC-AUC 0.819.
-- RandomForest — acc 0.973, F1 0.634, ROC-AUC 0.897.
-- GradientBoosting — acc 0.975, F1 0.680, ROC-AUC 0.889.
-- Победитель по CV ROC-AUC — GradientBoostingClassifier (CV 0.888; test: acc 0.975, F1 0.680, ROC-AUC 0.889).
+- DummyClassifier — acc 0.9508, F1 0.0000, ROC-AUC 0.5000.
+- LogisticRegression — acc 0.9632, F1 0.4286, ROC-AUC 0.8340.
+- DecisionTree — acc 0.9664, F1 0.5670, ROC-AUC 0.8187.
+- RandomForest — acc 0.9692, F1 0.5471, ROC-AUC 0.8944.
+- GradientBoosting — acc 0.9752, F1 0.6804, ROC-AUC 0.8894.
+- Победитель по CV ROC-AUC — GradientBoostingClassifier (CV 0.8876; test: acc 0.9752, F1 0.6804, ROC-AUC 0.8894).
 
 ## 5. Analysis
 
-- Устойчивость: оценка на train через CV, тест повторно не использовался (LogisticRegression — mean ROC-AUC 0.820, GradientBoosting — 0.888 +- 0.001 при 5 random_state).
+- Устойчивость: отдельно не проверялась (можно сделать 5 прогонов с разными `random_state`).
 - Ошибки: confusion matrix для лучшей модели — TN=4744, FP=10, FN=114, TP=132; при дисбалансе важнее контролировать FN.
 - Интерпретация: permutation importance (топ-15): f54, f25, f58, f13, f41, f11, f53, f33, f47, f38, f15, f43, f04, f52, f07.
 
 ## 6. Conclusion
 
-Дерево решений требует контроля сложности, в противном случае – происходит переобучение. Ансамбли дают более высокое качество на дисбалансных данных, также, при дисбалансе ориентир — F1 и ROC-AUC, accuracy вторична.
+Дерево решений требует контроля сложности, иначе происходит переобучение. Ансамбли дают более высокое качество на дисбалансных данных.
+При дисбалансе ориентир — F1 и ROC-AUC, accuracy вторична.
