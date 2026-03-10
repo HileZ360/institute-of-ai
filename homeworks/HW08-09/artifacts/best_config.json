@@ -1,0 +1,33 @@
+{
+  "dataset": "EMNIST-balanced",
+  "seed": 42,
+  "device_used": "cpu",
+  "default_data_root": ".cache/emnist",
+  "data_root_overridden": false,
+  "batch_size": 128,
+  "train_size": 90240,
+  "val_size": 22560,
+  "test_size": 18800,
+  "model": {
+    "hidden_dims": [
+      512,
+      256
+    ],
+    "activation": "relu",
+    "dropout_p": 0.0,
+    "use_batchnorm": true
+  },
+  "training": {
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "momentum": 0.0,
+    "weight_decay": 0.0,
+    "max_epochs": 15,
+    "early_stopping_patience": 3,
+    "best_epoch": 12,
+    "best_val_accuracy": 0.8561170212765957,
+    "best_val_loss": 0.47822228209346745,
+    "test_accuracy": 0.8520744680851063,
+    "test_loss": 0.5081247404027492
+  }
+}
