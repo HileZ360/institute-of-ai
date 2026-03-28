@@ -12,9 +12,9 @@
   "epochs_trained": 19,
   "best_epoch": 14,
   "best_val_metrics": {
-    "mae": 6.545851082036523,
-    "rmse": 8.261869100245763,
-    "mape": 4.413822431528374
+    "mae": 6.514281376026295,
+    "rmse": 8.115489564152904,
+    "mape": 4.377130622274044
   },
   "scaler": "StandardScaler(train target only)"
 }
