@@ -9,12 +9,12 @@
   "batch_size": 64,
   "learning_rate": 0.001,
   "max_epochs": 25,
-  "epochs_trained": 19,
-  "best_epoch": 14,
+  "epochs_trained": 13,
+  "best_epoch": 8,
   "best_val_metrics": {
-    "mae": 6.514281376026295,
-    "rmse": 8.115489564152904,
-    "mape": 4.377130622274044
+    "mae": 6.545807310033727,
+    "rmse": 8.141827592638556,
+    "mape": 4.403041945787334
   },
   "scaler": "StandardScaler(train target only)"
 }
