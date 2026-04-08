@@ -4,13 +4,13 @@ version = "0.1.0"
 description = "Add your description here"
 requires-python = ">=3.11"
 dependencies = [
-    "matplotlib",
-    "numpy",
-    "pandas",
-    "scikit-learn",
+    "matplotlib>=3.10.8",
+    "numpy>=2.4.4",
+    "pandas>=2.3.3",
+    "scikit-learn>=1.8.0",
 ]
 
 [dependency-groups]
 dev = [
-    "ipykernel",
+    "ipykernel>=7.1.0",
 ]
