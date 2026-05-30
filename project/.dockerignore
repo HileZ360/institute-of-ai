@@ -1,0 +1,17 @@
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+*.log
+logs/
+htmlcov/
+.coverage
+.coverage.*
+build/
+dist/
+*.egg-info/
+aie-course-meta/

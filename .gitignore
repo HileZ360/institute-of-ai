@@ -56,3 +56,4 @@ logs/
 *.bak
 *.old
 anaconda_projects/
+aie-course-meta/

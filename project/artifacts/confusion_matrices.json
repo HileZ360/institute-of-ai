@@ -1,0 +1,62 @@
+{
+  "DummyClassifier": [
+    [
+      481,
+      0
+    ],
+    [
+      89,
+      0
+    ]
+  ],
+  "LogisticRegression": [
+    [
+      398,
+      83
+    ],
+    [
+      10,
+      79
+    ]
+  ],
+  "DecisionTreeClassifier": [
+    [
+      412,
+      69
+    ],
+    [
+      11,
+      78
+    ]
+  ],
+  "RandomForestClassifier": [
+    [
+      419,
+      62
+    ],
+    [
+      7,
+      82
+    ]
+  ],
+  "GradientBoostingClassifier": [
+    [
+      476,
+      5
+    ],
+    [
+      22,
+      67
+    ]
+  ],
+  "KNeighborsClassifier": [
+    [
+      468,
+      13
+    ],
+    [
+      24,
+      65
+    ]
+  ]
+}

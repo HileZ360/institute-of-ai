@@ -1,0 +1,1 @@
+{"churn_probability":0.018406989172550122,"prediction":0,"risk_level":"low","model_name":"GradientBoostingClassifier"}

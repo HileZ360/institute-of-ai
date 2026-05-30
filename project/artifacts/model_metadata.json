@@ -1,0 +1,82 @@
+{
+  "dataset": {
+    "dataset_path": "data/Customer Churn.csv",
+    "raw_rows": 3150,
+    "raw_columns": 14,
+    "duplicates": 300,
+    "missing_values": 0,
+    "clean_rows": 2850,
+    "clean_columns": 14,
+    "target_counts": {
+      "0": 2404,
+      "1": 446
+    },
+    "target_share": {
+      "0": 0.8435,
+      "1": 0.1565
+    }
+  },
+  "target": "Churn",
+  "code_target_column": "churn",
+  "feature_columns": [
+    "call_failures",
+    "complaints",
+    "subscription_length",
+    "charge_amount",
+    "seconds_of_use",
+    "frequency_of_use",
+    "frequency_of_sms",
+    "distinct_called_numbers",
+    "age_group",
+    "tariff_plan",
+    "status",
+    "age",
+    "customer_value"
+  ],
+  "categorical_features": [
+    "complaints",
+    "tariff_plan",
+    "status",
+    "age_group"
+  ],
+  "numeric_features": [
+    "call_failures",
+    "subscription_length",
+    "charge_amount",
+    "seconds_of_use",
+    "frequency_of_use",
+    "frequency_of_sms",
+    "distinct_called_numbers",
+    "age",
+    "customer_value"
+  ],
+  "feature_descriptions": {
+    "call_failures": "активность и качество связи: число неудачных вызовов",
+    "complaints": "жалобы клиента: 1 если жалобы были, иначе 0",
+    "subscription_length": "длительность подписки в месяцах",
+    "charge_amount": "уровень начислений/стоимости тарифа",
+    "seconds_of_use": "активность клиента: суммарные секунды разговоров",
+    "frequency_of_use": "активность клиента: число звонков",
+    "frequency_of_sms": "активность клиента: число SMS",
+    "distinct_called_numbers": "активность клиента: число уникальных контактов",
+    "age_group": "возрастная группа клиента",
+    "tariff_plan": "тарифный план",
+    "status": "статус клиента в системе оператора",
+    "age": "возраст клиента",
+    "customer_value": "расчётная ценность клиента для оператора"
+  },
+  "feature_leakage_note": "Признак status оставлен в учебном эксперименте, но для production нужно проверить момент его фиксации относительно факта оттока.",
+  "random_state": 42,
+  "test_size": 0.2,
+  "cv": "StratifiedKFold(n_splits=5, shuffle=True, random_state=42)",
+  "selection_rule": "лучшая test F1, затем ROC-AUC и Recall",
+  "best_model": "GradientBoostingClassifier",
+  "best_model_path": "artifacts/best_model.joblib",
+  "best_test_metrics": {
+    "accuracy": 0.9526315789473684,
+    "precision": 0.9305555555555556,
+    "recall": 0.7528089887640449,
+    "f1": 0.8322981366459627,
+    "roc_auc": 0.9817912121282908
+  }
+}
