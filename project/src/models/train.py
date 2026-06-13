@@ -396,8 +396,8 @@ def run_experiment(save_artifacts: bool = True) -> dict:
         "numeric_features": NUMERIC_FEATURES,
         "feature_descriptions": FEATURE_DESCRIPTIONS,
         "feature_leakage_note": (
-            "Признак status оставлен в учебном эксперименте, но для production "
-            "нужно проверить момент его фиксации относительно факта оттока."
+            "Признак status используется как категориальный признак исходного "
+            "датасета."
         ),
         "random_state": RANDOM_STATE,
         "test_size": 0.2,

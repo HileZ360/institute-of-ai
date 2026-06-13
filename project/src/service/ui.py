@@ -1,4 +1,4 @@
-"""Веб-интерфейс для демонстрации модели оттока."""
+"""Веб-интерфейс модели оттока."""
 
 from __future__ import annotations
 
@@ -146,7 +146,7 @@ def _scenario_choice(st: Any) -> tuple[str, dict[str, Any]]:
         "Демо-профиль",
         options=list(scenarios),
         format_func=lambda key: scenarios[key]["label"],
-        help="Профили нужны для быстрой демонстрации разных уровней риска.",
+        help="Профили позволяют быстро сравнить разные уровни риска.",
     )
     st.sidebar.caption(scenarios[scenario_key]["summary"])
     return scenario_key, scenarios[scenario_key]
@@ -292,7 +292,7 @@ def main() -> None:
         layout="wide",
     )
     st.title("Прогнозирование оттока абонентов телеком-оператора")
-    st.caption("Учебный проект, GUI-версия.")
+    st.caption("Интерфейс прогнозирования на основе сохранённой модели.")
 
     try:
         model = _load_model()
@@ -304,24 +304,11 @@ def main() -> None:
     scenario_key, scenario = _scenario_choice(st)
     _render_dashboard(st, model)
 
-    tab_predict, tab_notes = st.tabs(["Прогноз", "Ограничения"])
+    payload = _render_inputs(st, scenario["features"], key_prefix=scenario_key)
 
-    with tab_predict:
-        payload = _render_inputs(st, scenario["features"], key_prefix=scenario_key)
-
-        if st.button("Рассчитать риск", type="primary"):
-            result = format_prediction(model.predict(payload))
-            _render_result(st, result)
-
-    with tab_notes:
-        st.subheader("Что важно сказать при защите")
-        st.markdown(
-            """
-            - Модель выбрана по test F1, потому что задача несбалансирована.
-            - `status` оставлен как учебный признак, но в production нужен аудит момента его фиксации.
-            - Порог 0.5 подходит для демонстрации; в бизнесе его надо выбирать по стоимости ошибок.
-            """
-        )
+    if st.button("Рассчитать риск", type="primary"):
+        result = format_prediction(model.predict(payload))
+        _render_result(st, result)
 
 
 if __name__ == "__main__":

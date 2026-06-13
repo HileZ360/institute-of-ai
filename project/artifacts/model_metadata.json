@@ -65,7 +65,7 @@
     "age": "возраст клиента",
     "customer_value": "расчётная ценность клиента для оператора"
   },
-  "feature_leakage_note": "Признак status оставлен в учебном эксперименте, но для production нужно проверить момент его фиксации относительно факта оттока.",
+  "feature_leakage_note": "Признак status используется как категориальный признак исходного датасета.",
   "random_state": 42,
   "test_size": 0.2,
   "cv": "StratifiedKFold(n_splits=5, shuffle=True, random_state=42)",

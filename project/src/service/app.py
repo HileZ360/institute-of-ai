@@ -1,4 +1,4 @@
-"""API для демонстрации модели на защите."""
+"""API для инференса модели оттока."""
 
 from __future__ import annotations
 
@@ -34,7 +34,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Прогнозирование оттока абонентов телеком-оператора API",
-    description="Учебный проект для прогноза оттока абонента по сохранённой sklearn-модели.",
+    description="Сервис прогноза оттока абонента по сохранённой sklearn-модели.",
     version="1.0.0",
     lifespan=lifespan,
 )
